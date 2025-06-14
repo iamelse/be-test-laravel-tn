@@ -1,0 +1,153 @@
+{
+    "info": {
+        "name": "Todo API Collection",
+        "_postman_id": "1a2b3c4d-5e6f-7890-1234-56789abcdef0",
+        "description": "Postman collection for Todo API with CRUD, Excel Export, and Chart",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Todo",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/todos",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos"]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"Design Landing Page\",\n  \"assignee\": \"John Doe\",\n  \"due_date\": \"2025-06-30\",\n  \"time_tracked\": 0,\n  \"status\": \"pending\",\n  \"priority\": \"high\"\n}"
+                },
+                "description": "Create a new todo"
+            }
+        },
+        {
+            "name": "Get Todo by ID",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/1",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "1"]
+                },
+                "description": "Fetch a single Todo by ID"
+            }
+        },
+        {
+            "name": "Update Todo",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json"
+                    },
+                    {
+                        "key":  "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/todos/1",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "1"]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"Updated Title\",\n  \"status\": \"in_progress\"\n}"
+                },
+                "description": "Update a todo by ID"
+            }
+        },
+        {
+            "name": "Delete Todo",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/1",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "1"]
+                },
+                "description": "Delete a todo by ID"
+            }
+        },
+        {
+            "name": "Export Todos to Excel",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/export?title=a&assignee=Alice,Diana&status=pending,open&priority=high&start=2025-06-01&end=2025-06-30&min=0&max=10",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "export"],
+                    "query": [
+                        { "key": "title", "value": "Design" },
+                        { "key": "assignee", "value": "John,Doe" },
+                        { "key": "status", "value": "pending,open" },
+                        { "key": "priority", "value": "high" },
+                        { "key": "start", "value": "2025-06-01" },
+                        { "key": "end", "value": "2025-06-30" },
+                        { "key": "min", "value": "0" },
+                        { "key": "max", "value": "10" }
+                    ]
+                },
+                "description": "Export todos with filters to Excel file"
+            }
+        },
+        {
+            "name": "Chart: Status Summary",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/chart?type=status",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "chart"],
+                    "query": [{ "key": "type", "value": "status" }]
+                },
+                "description": "Get JSON chart data for status summary"
+            }
+        },
+        {
+            "name": "Chart: Priority Summary",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/chart?type=priority",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "chart"],
+                    "query": [{ "key": "type", "value": "priority" }]
+                },
+                "description": "Get JSON chart data for priority summary"
+            }
+        },
+        {
+            "name": "Chart: Assignee Summary",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{base_url}}/api/todos/chart?type=assignee",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "todos", "chart"],
+                    "query": [{ "key": "type", "value": "assignee" }]
+                },
+                "description": "Get JSON chart data for assignee summary"
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000"
+        }
+    ]
+}

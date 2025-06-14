@@ -8,15 +8,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// CRUD routes
-Route::get('/todos', [TodoController::class, 'index']);           // GET semua todo
-Route::post('/todos', [TodoController::class, 'store']);          // POST buat todo
-Route::get('/todos/{id}', [TodoController::class, 'show']);       // GET satu todo
-Route::put('/todos/{id}', [TodoController::class, 'update']);     // PUT update todo
-Route::delete('/todos/{id}', [TodoController::class, 'destroy']); // DELETE todo
+Route::prefix('todos')->group(function () {
+    Route::post('/', [TodoController::class, 'store']);
+    Route::get('/export', [TodoController::class, 'export']);
+    Route::get('/chart', [TodoController::class, 'chart']);
 
-// Ekspor Excel
-Route::get('/todos-export', [TodoController::class, 'export']);
-
-// Chart data
-Route::get('/chart', [TodoController::class, 'chart']);
+    // CRUD routes
+    Route::get('/{id}', [TodoController::class, 'show']);
+    Route::put('/{id}', [TodoController::class, 'update']);
+    Route::delete('/{id}', [TodoController::class, 'destroy']);
+});
